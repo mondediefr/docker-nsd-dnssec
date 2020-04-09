@@ -1,8 +1,8 @@
 #!/bin/sh
 
-DOMAIN="$1"
+DOMAIN="${1}"
 
-if [ -z "$DOMAIN" ]; then
+if [ -z "${DOMAIN}" ]; then
   echo "Domain name must be defined" 1>&2
   exit 1
 fi

@@ -1,6 +1,6 @@
-# hardware/nsd-dnssec
+# mondedie/nsd-dnssec
 
-![nsd](https://i.imgur.com/tPgkQVB.png "nsd")
+![nsd](https://i.imgur.com/tPgkQVB.png)
 
 ### What is this?
 
@@ -10,7 +10,7 @@ NSD is an authoritative only, high performance, simple and open source name serv
 
 - Lightweight & secure image (no root process)
 - Based on Alpine Linux
-- Latest NSD version (4.2.1 - Jul 9, 2019)
+- Latest NSD version (4.3.0)
 - ZSK and KSK keys, DS-Records management and zone signature with ldns
 
 ### Build-time variables
@@ -45,11 +45,12 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ns1.domain.tld. hostmaster.domain.tld. (
-                                        2016020202 ; Serial
-                                        7200       ; Refresh
-                                        1800       ; Retry
-                                        1209600    ; Expire
-                                        86400 )    ; Minimum
+    2016020202 ; Serial
+    7200       ; Refresh
+    1800       ; Retry
+    1209600    ; Expire
+    86400      ; Minimum
+)
 
 ; NAMESERVERS
 
