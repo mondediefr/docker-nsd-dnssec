@@ -12,5 +12,10 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Run test
+        name: Setup docker
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      -
+        name: Makefile
         run: make all
