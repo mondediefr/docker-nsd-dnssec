@@ -5,8 +5,7 @@ LABEL description "Simple DNS authoritative server with DNSSEC support" \
 
 ARG NSD_VERSION=4.3.1
 
-# https://keyserver.ubuntu.com/pks/lookup?search=wouter%40nlnetlabs.nl&fingerprint=on&op=index
-# pub rsa4096/edfaa3f2ca4e6eb05681af8e9f6f1c2d7e045f8d 2011-04-21T09:47:08Z W.C.A. Wijngaards <wouter@nlnetlabs.nl>
+# http://keys.gnupg.net/pks/lookup?search=wouter%40nlnetlabs.nl&fingerprint=on&op=index
 ARG GPG_SHORTID="0x9f6f1c2d7e045f8d"
 ARG GPG_FINGERPRINT="EDFA A3F2 CA4E 6EB0 5681  AF8E 9F6F 1C2D 7E04 5F8D"
 
@@ -32,7 +31,7 @@ RUN apk add --no-cache --virtual build-dependencies \
   && CHECKSUM=$(sha256sum nsd-${NSD_VERSION}.tar.gz | awk '{print $1}') \
   && SHA256_HASH=$(cat nsd-${NSD_VERSION}.tar.gz.sha256) \
   && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "ERROR: Checksum does not match!" && exit 1; fi \
-  && gpg --keyserver keyserver.ubuntu.com --receive-keys "${GPG_SHORTID}" \
+  && gpg --receive-keys "${GPG_SHORTID}" \
   && FINGERPRINT="$(LANG=C gpg --verify nsd-${NSD_VERSION}.tar.gz.asc nsd-${NSD_VERSION}.tar.gz 2>&1 | sed -n "s#Primary key fingerprint: \(.*\)#\1#p")" \
   && if [ -z "${FINGERPRINT}" ]; then echo "ERROR: Invalid GPG signature!" && exit 1; fi \
   && if [ "${FINGERPRINT}" != "${GPG_FINGERPRINT}" ]; then echo "ERROR: Wrong GPG fingerprint!" && exit 1; fi \

@@ -4,21 +4,25 @@
 
 ### What is this?
 
-NSD is an authoritative only, high performance, simple and open source name server.
+NSD is an authoritative only, high performance, simple and open source name server.  
+Website: https://www.nlnetlabs.nl/projects/nsd/about/
 
 ### Features
 
 - Lightweight & secure image (no root process)
 - Based on Alpine Linux
-- Latest NSD version (4.3.0)
+- Latest NSD version (4.3.1)
 - ZSK and KSK keys, DS-Records management and zone signature with ldns
+
+### Tag available
+
+ - **latest** [(Dockerfile)](https://github.com/mondediefr/docker-nsd-dnssec/blob/master/Dockerfile)
 
 ### Build-time variables
 
 - **NSD_VERSION** : version of NSD
 - **GPG_SHORTID** : short gpg key ID
 - **GPG_FINGERPRINT** : fingerprint of signing key
-- **SHA256_HASH** : SHA256 hash of NSD archive
 
 ### Ports
 
