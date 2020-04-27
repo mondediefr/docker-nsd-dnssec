@@ -11,6 +11,7 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+        run: git submodule update --init --recursive
       -
         name: Setup docker
         uses: crazy-max/ghaction-docker-buildx@v1

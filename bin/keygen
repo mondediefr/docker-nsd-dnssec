@@ -20,4 +20,5 @@ mv "${KSK}.key" "K${DOMAIN}.ksk.key"
 mv "${KSK}.private" "K${DOMAIN}.ksk.private"
 
 chmod 600 -- *.private
+
 exit 0

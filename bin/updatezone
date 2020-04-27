@@ -17,4 +17,5 @@ echo -n "Notify slave servers... "
 nsd-control notify "${DOMAIN}"
 
 echo "Done."
+
 exit 0

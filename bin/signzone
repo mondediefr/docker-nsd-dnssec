@@ -19,4 +19,5 @@ ldns-signzone -n -p "${arg}" -s "$(head /dev/urandom | tr -dc A-Za-z0-9 | sha1su
   -f "db.${DOMAIN}.signed" "db.${DOMAIN}" "K${DOMAIN}.zsk" "K${DOMAIN}.ksk"
 
 updatezone "${DOMAIN}"
+
 exit 0

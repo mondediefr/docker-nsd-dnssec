@@ -11,7 +11,7 @@ build:
 	docker build -t $(NAME) .
 
 init:
-	docker rm -f nsd_unsigned nsd_default
+	-docker rm -f nsd_unsigned nsd_default
 
 	sleep 2
 
@@ -31,12 +31,12 @@ init:
 
 fixtures:
 	docker exec nsd_default keygen example.org
-	docker exec nsd_default signzone example.org
+	docker exec nsd_default signzone example.org $(date -d "+4 months" +'%Y%m%d%H%M%S')
 
 run:
 	./test/bats/bin/bats test/tests.bats
 
 clean:
-	docker container stop nsd_unsigned nsd_default || true
-	docker container rm --volumes nsd_unsigned nsd_default || true
-	docker images --quiet --filter=dangling=true | xargs --no-run-if-empty docker rmi
+	docker stop nsd_unsigned nsd_default || true
+	docker rm nsd_unsigned nsd_default || true
+	docker system prune --all --volumes --force
