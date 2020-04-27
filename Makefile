@@ -1,4 +1,5 @@
 NAME = mondedie/nsd-dnssec:testing
+EXPIRE := $(shell date -d "+4 months" +'%Y%m%d%H%M%S')
 
 all: build-no-cache init fixtures run clean
 all-fast: build init fixtures run clean
@@ -31,7 +32,7 @@ init:
 
 fixtures:
 	docker exec nsd_default keygen example.org
-	docker exec nsd_default signzone example.org $(date -d "+4 months" +'%Y%m%d%H%M%S')
+	docker exec nsd_default signzone example.org $(EXPIRE)
 
 run:
 	./test/bats/bin/bats test/tests.bats
