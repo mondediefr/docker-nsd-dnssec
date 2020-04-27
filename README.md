@@ -2,6 +2,11 @@
 
 ![nsd](https://i.imgur.com/tPgkQVB.png)
 
+![](https://github.com/mondediefr/docker-nsd-dnssec/workflows/build/badge.svg)
+![](https://github.com/mondediefr/docker-nsd-dnssec/workflows/test/badge.svg)
+[![](https://img.shields.io/docker/pulls/mondedie/nsd-dnssec)](https://hub.docker.com/r/mondedie/nsd-dnssec)
+[![](https://img.shields.io/docker/stars/mondedie/nsd-dnssec)](https://hub.docker.com/r/mondedie/nsd-dnssec)
+
 ### What is this?
 
 NSD is an authoritative only, high performance, simple and open source name server.  

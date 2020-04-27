@@ -11,13 +11,13 @@ ARG GPG_FINGERPRINT="EDFA A3F2 CA4E 6EB0 5681  AF8E 9F6F 1C2D 7E04 5F8D"
 
 ENV UID=991 GID=991
 
-RUN apk add --no-cache --virtual build-dependencies \
+RUN apk add --no-progress --no-cache --virtual build-dependencies \
     gnupg \
     build-base \
     libevent-dev \
     openssl-dev \
     ca-certificates \
-  && apk add --no-cache \
+  && apk add --no-progress --no-cache \
      ldns \
      ldns-tools \
      libevent \
@@ -43,8 +43,8 @@ RUN apk add --no-cache --virtual build-dependencies \
     LDFLAGS="-Wl,-z,now -Wl,-z,relro" \
   && make \
   && make install \
-  && apk del build-dependencies \
-  && rm -rf /var/cache/apk/* /tmp/* /root/.gnupg
+  && apk del --purge build-dependencies \
+  && rm -rf /tmp/* /root/.gnupg
 
 COPY bin /usr/local/bin
 VOLUME /zones /etc/nsd /var/db/nsd
