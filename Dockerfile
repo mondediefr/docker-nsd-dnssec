@@ -27,7 +27,6 @@ RUN apk add --no-progress --no-cache --virtual build-dependencies \
   && wget -q https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz \
   && wget -q https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz.asc \
   && wget -q https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz.sha256 \
-  && echo "Verifying both integrity and authenticity of nsd-${NSD_VERSION}.tar.gz..." \
   && CHECKSUM=$(sha256sum nsd-${NSD_VERSION}.tar.gz | awk '{print $1}') \
   && SHA256_HASH=$(cat nsd-${NSD_VERSION}.tar.gz.sha256) \
   && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "ERROR: Checksum does not match!" && exit 1; fi \
@@ -35,7 +34,6 @@ RUN apk add --no-progress --no-cache --virtual build-dependencies \
   && FINGERPRINT="$(LANG=C gpg --verify nsd-${NSD_VERSION}.tar.gz.asc nsd-${NSD_VERSION}.tar.gz 2>&1 | sed -n "s#Primary key fingerprint: \(.*\)#\1#p")" \
   && if [ -z "${FINGERPRINT}" ]; then echo "ERROR: Invalid GPG signature!" && exit 1; fi \
   && if [ "${FINGERPRINT}" != "${GPG_FINGERPRINT}" ]; then echo "ERROR: Wrong GPG fingerprint!" && exit 1; fi \
-  && echo "All seems good, now unpacking nsd-${NSD_VERSION}.tar.gz..." \
   && tar xzf nsd-${NSD_VERSION}.tar.gz \
   && cd nsd-${NSD_VERSION} \
   && ./configure \
@@ -49,4 +47,4 @@ RUN apk add --no-progress --no-cache --virtual build-dependencies \
 COPY bin /usr/local/bin
 VOLUME /zones /etc/nsd /var/db/nsd
 EXPOSE 53 53/udp
-CMD ["run.sh"]
+CMD ["/usr/local/bin/startup"]

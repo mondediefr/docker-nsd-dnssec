@@ -251,3 +251,7 @@ Restart the DNS server to take the changes into account:
 ```
 docker-compose restart nsd
 ```
+
+## License
+
+Docker image [mondedie/nsd-dnssec](https://hub.docker.com/r/mondedie/nsd-dnssec) is released under [MIT License](https://github.com/mondediefr/docker-nsd-dnssec/blob/master/LICENSE)
