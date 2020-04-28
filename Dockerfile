@@ -45,6 +45,7 @@ RUN apk add --no-progress --no-cache --virtual build-dependencies \
   && rm -rf /tmp/* /root/.gnupg
 
 COPY bin /usr/local/bin
+RUN chmod 775 /usr/local/bin/*
 VOLUME /zones /etc/nsd /var/db/nsd
 EXPOSE 53 53/udp
 CMD ["/usr/local/bin/startup"]

@@ -1,7 +1,6 @@
 load 'test_helper/bats-support/load'
 load 'test_helper/bats-assert/load'
 
-
 @test "check zone" {
   run docker exec nsd_unsigned nsd-checkzone example.org /zones/db.example.org
   assert_success
