@@ -7,41 +7,39 @@
 [![](https://img.shields.io/docker/pulls/mondedie/nsd-dnssec)](https://hub.docker.com/r/mondedie/nsd-dnssec)
 [![](https://img.shields.io/docker/stars/mondedie/nsd-dnssec)](https://hub.docker.com/r/mondedie/nsd-dnssec)
 
-### What is this?
-
-NSD is an authoritative only, high performance, simple and open source name server.  
-Website: https://www.nlnetlabs.nl/projects/nsd/about/
-
-### Features
+## Features
 
 - Lightweight & secure image (no root process)
 - Based on Alpine Linux
 - Latest NSD version (4.3.1)
 - ZSK and KSK keys, DS-Records management and zone signature with ldns
 
-### Tag available
+NSD is an authoritative only, high performance, simple and open source name server.  
+Website: https://www.nlnetlabs.nl/projects/nsd/about/
+
+## Tag available
 
  - **latest** [(Dockerfile)](https://github.com/mondediefr/docker-nsd-dnssec/blob/master/Dockerfile)
 
-### Build-time variables
+## Build-time variables
 
 - **NSD_VERSION** : version of NSD
 - **GPG_SHORTID** : short gpg key ID
 - **GPG_FINGERPRINT** : fingerprint of signing key
 
-### Ports
+## Ports
 
 - **53/tcp**
 - **53/udp** (for AXFR zones transfer queries)
 
-### Environment variables
+## Environment variables
 
 | Variable | Description | Type | Default value |
 | -------- | ----------- | ---- | ------------- |
 | **UID** | nsd user id | *optional* | 991
 | **GID** | nsd group id | *optional* | 991
 
-### Setup
+## Setup
 
 Put your dns zone file in `/mnt/docker/nsd/zones/db.domain.tld`.
 
@@ -151,7 +149,7 @@ docker run --rm -v `pwd`/zones:/zones -ti hardware/nsd-dnssec nsd-checkzone doma
 docker run --rm -v `pwd`/conf:/etc/nsd -ti hardware/nsd-dnssec nsd-checkconf /etc/nsd/nsd.conf
 ```
 
-### Docker-compose
+## Docker-compose
 
 #### Docker-compose.yml
 
@@ -176,7 +174,7 @@ nsd:
 docker-compose up -d
 ```
 
-### Generating DNSSEC keys and signed zone
+## Generating DNSSEC keys and signed zone
 
 Generate ZSK and KSK keys with ECDSAP384SHA384 algorithm (it may take some time; you can install `haveged` in your base system to speed it up):
 
