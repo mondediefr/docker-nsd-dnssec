@@ -39,7 +39,7 @@ load 'test_helper/bats-assert/load'
   assert_line --index 2 '> DS record 2 [Digest Type = SHA256] :'
   assert_line --index 3 --regexp '^example.org.	3600	IN	DS	[0-9]{3,5} 14 2 [0-9a-f]{64}$'
   assert_line --index 4 '> Public KSK Key :'
-  assert_line --index 5 --regexp '^example.org.	IN	DNSKEY	257 3 14 [^ ]{128} ;\{id = [0-9]{4,5} \(ksk\), size = 384b\}$'
+  assert_line --index 5 --regexp '^example.org.	IN	DNSKEY	257 3 14 [^ ]{128} ;\{id = [0-9]{1,5} \(ksk\), size = 384b\}$'
 }
 
 @test "dig result" {
@@ -61,8 +61,8 @@ load 'test_helper/bats-assert/load'
   assert_line --index 3 --regexp '^example.org.		3600	IN	RRSIG	MX 14 2 3600 '
   assert_line --index 4 --regexp '^example.org.		3600	IN	RRSIG	DNSKEY 14 2 3600 '
   assert_line --index 5 --regexp '^example.org.		3600	IN	RRSIG	NSEC3PARAM 14 2 3600 '
-  assert_line --index 6 --regexp '^example.org.		3600	IN	NS	ns1.example.org.'
-  assert_line --index 7 --regexp '^example.org.		3600	IN	NS	ns2.example.org.'
+  assert_line --index 6 'example.org.		3600	IN	NS	ns1.example.org.'
+  assert_line --index 7 'example.org.		3600	IN	NS	ns2.example.org.'
   assert_line --index 8 'ns1.example.org.	3600	IN	A	10.20.30.40'
   assert_line --index 9 'ns2.example.org.	3600	IN	A	10.20.30.40'
 }
