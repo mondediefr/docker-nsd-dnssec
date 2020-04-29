@@ -1,5 +1,4 @@
 NAME = mondedie/nsd-dnssec:testing
-EXPIRE := $(shell date -d "+4 months" +'%Y%m%d%H%M%S')
 
 all: build-no-cache init fixtures run clean
 all-fast: build init fixtures run clean
@@ -12,10 +11,6 @@ build:
 	docker build -t $(NAME) .
 
 init:
-	-docker rm -f nsd_unsigned nsd_default
-
-	sleep 2
-
 	docker run \
 		--name nsd_unsigned --detach --tty \
 		-v "$(shell pwd)/test/config/nsd.conf":/etc/nsd/nsd.conf \
@@ -30,12 +25,12 @@ init:
 
 fixtures:
 	docker exec nsd_default keygen example.org
-	docker exec nsd_default signzone example.org $(EXPIRE)
+	docker exec nsd_default signzone example.org $(shell date -d "+4 months" +'%Y%m%d%H%M%S')
 
 run:
 	./test/bats/bin/bats test/tests.bats
 
 clean:
 	docker stop nsd_unsigned nsd_default || true
-	docker rm nsd_unsigned nsd_default || true
+	docker rm --force nsd_unsigned nsd_default || true
 	docker system prune --all --volumes --force
