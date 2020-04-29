@@ -19,7 +19,7 @@ Website: https://www.nlnetlabs.nl/projects/nsd/about/
 
 ## Tag available
 
- - **latest** [(Dockerfile)](https://github.com/mondediefr/docker-nsd-dnssec/blob/master/Dockerfile)
+- latest [(Dockerfile)](https://github.com/mondediefr/docker-nsd-dnssec/blob/master/Dockerfile)
 
 ## Build-time variables
 
