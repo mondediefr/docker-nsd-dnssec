@@ -1,15 +1,16 @@
-FROM alpine:3.11
+FROM alpine:3.12
 
 LABEL description "Simple DNS authoritative server with DNSSEC support" \
       maintainer="Hardware <contact@meshup.net>, Magicalex <magicalex@mondedie.fr>"
 
+# http://keys.gnupg.net/pks/lookup?search=wouter%40nlnetlabs.nl&fingerprint=on&op=index
+ARG GPG_FINGERPRINT="EDFA A3F2 CA4E 6EB0 5681  AF8E 9F6F 1C2D 7E04 5F8D"
+ARG GPG_SHORTID="0x9f6f1c2d7e045f8d"
 ARG NSD_VERSION=4.3.1
 
-# http://keys.gnupg.net/pks/lookup?search=wouter%40nlnetlabs.nl&fingerprint=on&op=index
-ARG GPG_SHORTID="0x9f6f1c2d7e045f8d"
-ARG GPG_FINGERPRINT="EDFA A3F2 CA4E 6EB0 5681  AF8E 9F6F 1C2D 7E04 5F8D"
-
 ENV UID=991 GID=991
+
+COPY bin /usr/local/bin
 
 RUN apk add --no-progress --no-cache --virtual build-dependencies \
     gnupg \
@@ -42,10 +43,9 @@ RUN apk add --no-progress --no-cache --virtual build-dependencies \
   && make \
   && make install \
   && apk del --purge build-dependencies \
-  && rm -rf /tmp/* /root/.gnupg
+  && rm -rf /tmp/* /root/.gnupg \
+  && chmod 775 /usr/local/bin/*
 
-COPY bin /usr/local/bin
-RUN chmod 775 /usr/local/bin/*
 VOLUME /zones /etc/nsd /var/db/nsd
 EXPOSE 53 53/udp
 CMD ["/usr/local/bin/startup"]
