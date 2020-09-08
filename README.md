@@ -11,7 +11,7 @@
 
 - Lightweight & secure image (no root process)
 - Based on Alpine Linux
-- Latest NSD version (4.3.1)
+- Latest NSD version (4.3.2)
 - ZSK and KSK keys, DS-Records management and zone signature with ldns
 
 NSD is an authoritative only, high performance, simple and open source name server.  

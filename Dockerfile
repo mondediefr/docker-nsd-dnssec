@@ -25,13 +25,17 @@ RUN apk add --no-progress --no-cache --virtual build-dependencies \
      openssl \
      tini \
   && cd /tmp \
-  && wget -q https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz \
-  && wget -q https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz.asc \
-  && wget -q https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz.sha256 \
+  && wget https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz \
+  && wget https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz.asc \
+  && wget https://www.nlnetlabs.nl/downloads/nsd/nsd-${NSD_VERSION}.tar.gz.sha256 \
   && CHECKSUM=$(sha256sum nsd-${NSD_VERSION}.tar.gz | awk '{print $1}') \
   && SHA256_HASH=$(cat nsd-${NSD_VERSION}.tar.gz.sha256) \
   && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "ERROR: Checksum does not match!" && exit 1; fi \
-  && gpg --receive-keys "${GPG_SHORTID}" \
+  && ( \
+      gpg --keyserver ha.pool.sks-keyservers.net --recv-keys ${GPG_SHORTID} || \
+      gpg --keyserver keyserver.pgp.com --recv-keys ${GPG_SHORTID} || \
+      gpg --keyserver pgp.mit.edu --recv-keys ${GPG_SHORTID} \
+    ) \
   && FINGERPRINT="$(LANG=C gpg --verify nsd-${NSD_VERSION}.tar.gz.asc nsd-${NSD_VERSION}.tar.gz 2>&1 | sed -n "s#Primary key fingerprint: \(.*\)#\1#p")" \
   && if [ -z "${FINGERPRINT}" ]; then echo "ERROR: Invalid GPG signature!" && exit 1; fi \
   && if [ "${FINGERPRINT}" != "${GPG_FINGERPRINT}" ]; then echo "ERROR: Wrong GPG fingerprint!" && exit 1; fi \
