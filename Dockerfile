@@ -6,7 +6,7 @@ LABEL description "Simple DNS authoritative server with DNSSEC support" \
 # http://keys.gnupg.net/pks/lookup?search=wouter%40nlnetlabs.nl&fingerprint=on&op=index
 ARG GPG_FINGERPRINT="EDFA A3F2 CA4E 6EB0 5681  AF8E 9F6F 1C2D 7E04 5F8D"
 ARG GPG_SHORTID="0x9f6f1c2d7e045f8d"
-ARG NSD_VERSION=4.3.2
+ARG NSD_VERSION=4.3.3
 
 ENV UID=991 GID=991
 
