@@ -28,7 +28,7 @@ fixtures:
 	docker exec nsd_default signzone example.org $(shell date -d "+4 months" +'%Y%m%d%H%M%S')
 
 run:
-	./test/bats/bin/bats test/tests.bats
+	./test/bats/bin/bats --pretty --timing test/tests.bats
 
 clean:
 	docker stop nsd_unsigned nsd_default || true

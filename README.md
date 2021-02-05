@@ -145,8 +145,8 @@ Check your zone and nsd configuration:
 
 ```
 cd /mnt/docker/nsd
-docker run --rm -v `pwd`/zones:/zones -ti hardware/nsd-dnssec nsd-checkzone domain.tld /zones/db.domain.tld
-docker run --rm -v `pwd`/conf:/etc/nsd -ti hardware/nsd-dnssec nsd-checkconf /etc/nsd/nsd.conf
+docker run --rm -v "$(pwd)/zones:/zones" -ti mondedie/nsd-dnssec nsd-checkzone domain.tld /zones/db.domain.tld
+docker run --rm -v "$(pwd)/conf:/etc/nsd" -ti mondedie/nsd-dnssec nsd-checkconf /etc/nsd/nsd.conf
 ```
 
 ## Docker-compose
@@ -155,7 +155,7 @@ docker run --rm -v `pwd`/conf:/etc/nsd -ti hardware/nsd-dnssec nsd-checkconf /et
 
 ```yaml
 nsd:
-  image: hardware/nsd-dnssec
+  image: mondedie/nsd-dnssec
   container_name: nsd
   ports:
     - "PUBLIC_IP_ADDRESS:53:53"
